@@ -1,7 +1,7 @@
-
 package Practica02.Controlador;
 import Modelo.Corredor;
 import Practica02.Vista.VistaAgregarJugador;
+import java.util.Random;
 
 public class AgregarJugadorControlador {
     private Corredor[] corredores;
@@ -17,6 +17,18 @@ public class AgregarJugadorControlador {
     //botones
     private void acciones() {
         vista.getBotonAgregar().addActionListener(e -> guardarPersonaje());
+    }
+
+    public Corredor[] getCorredores() {
+        return corredores;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public VistaAgregarJugador getVista() {
+        return vista;
     }
     
     private void guardarPersonaje() {
@@ -44,6 +56,13 @@ public class AgregarJugadorControlador {
             vista.mostrarMensaje("ERROR: lista llena o nombre repetido");
         }
     }
+    public String[] getNombresJugadores() {
+        String[] nombres = new String[total];
+        for (int i = 0; i < total; i++) {
+            nombres[i] = corredores[i].getNombre(); //+ " - " + corredores[i].getTiempoDescanso();
+        }
+        return nombres;
+    }
         
     private int obtenerDelay(String escoba) {
         switch (escoba) {
@@ -66,6 +85,15 @@ public class AgregarJugadorControlador {
         return true;
     }
     
+    public Corredor buscarPorNombre(String nombre) {
+    for (int i = 0; i < total; i++) {
+        if (corredores[i].getNombre().equalsIgnoreCase(nombre)) {
+            return corredores[i];
+        }
+     }
+    
+    return null; // no encontrado
+    }
     private boolean existeNombre(String nombre) {
         for (int i = 0; i < total; i++) {
             if (corredores[i].getNombre().equalsIgnoreCase(nombre)) {
@@ -74,6 +102,15 @@ public class AgregarJugadorControlador {
         }
         return false;
     }
-    
+    public Corredor obtenerAleatorio() {
+        if (total == 0) {
+            return null; // o lanzar excepción si prefieres
+        }
+
+        Random rand = new Random();
+        int indice = rand.nextInt(total); // SOLO hasta total
+
+        return corredores[indice];
+    }
     
 }

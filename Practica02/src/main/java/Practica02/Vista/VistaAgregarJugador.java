@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Practica02.Vista;
 
-/**
- *
- * @author alejandro
- */
 public class VistaAgregarJugador extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaAgregarJugador.class.getName());
@@ -17,6 +9,7 @@ public class VistaAgregarJugador extends javax.swing.JFrame {
         initComponents();
         llenarCombos();
     }
+    
     private void llenarCombos() {
     // Limpiar los items
     ComboBoxEscoba.removeAllItems();
@@ -76,6 +69,7 @@ public class VistaAgregarJugador extends javax.swing.JFrame {
         BotonAgregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(104, 91, 50));
 
         jLabel1.setFont(new java.awt.Font("Z003", 0, 36)); // NOI18N
         jLabel1.setText("Agregar Jugador");
@@ -103,38 +97,35 @@ public class VistaAgregarJugador extends javax.swing.JFrame {
         BotonAgregar.setFont(new java.awt.Font("Z003", 0, 24)); // NOI18N
         BotonAgregar.setText("Agregar");
         BotonAgregar.setAlignmentX(0.5F);
+        BotonAgregar.addActionListener(this::BotonAgregarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TextoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                                    .addComponent(ComboBoxEscoba, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(ComboBoxCasa, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(BotonSalir)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TextoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addComponent(ComboBoxEscoba, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ComboBoxCasa, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BotonSalir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotonAgregar)
+                        .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap(51, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(254, Short.MAX_VALUE)
-                    .addComponent(BotonAgregar)
-                    .addGap(41, 41, 41)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,13 +145,10 @@ public class VistaAgregarJugador extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(ComboBoxCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(BotonSalir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonSalir)
+                    .addComponent(BotonAgregar))
                 .addContainerGap(44, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(222, Short.MAX_VALUE)
-                    .addComponent(BotonAgregar)
-                    .addGap(40, 40, 40)))
         );
 
         pack();
@@ -177,6 +165,10 @@ public class VistaAgregarJugador extends javax.swing.JFrame {
     private void ComboBoxCasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxCasaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxCasaActionPerformed
+
+    private void BotonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonAgregarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -22,10 +22,14 @@ public class Corredor implements Runnable{
         this.OnMove = OnMove;
     }
 
+    public int getTiempoDescanso() {
+        return tiempoDescanso;
+    }
+    
     public String getNombre() {
         return Nombre;
     }
-
+    
     public int getPosicionX() {
         return PosicionX;
     }

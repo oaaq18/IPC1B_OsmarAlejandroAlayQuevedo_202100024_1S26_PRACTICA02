@@ -7,17 +7,32 @@ public class ContoladorCarrera {
     private PanelPista Panel;
     private Corredor Jugador;
     private Corredor Computadora;
+    
 
     public ContoladorCarrera(PanelPista Panel) {
         this.Panel = Panel;
+        
     }
-  
-    public void prepararCarrera(){
+
+    public PanelPista getPanel() {
+        return Panel;
+    }
+
+    public Corredor getJugador() {
+        return Jugador;
+    }
+
+    public Corredor getComputadora() {
+        return Computadora;
+    }
+    
+    public void prepararCarrera(Corredor jugador, Corredor oponente){
         Runnable repintarVista = () -> Panel.repaint();
         
-        Jugador = new Corredor("Fernando", 1000, 50,15,  repintarVista);
-        Computadora = new Corredor("Chatio", 2000, 150,30, repintarVista );
-        
+        //Jugador = new Corredor("Fernando", 1000, 50,15,  repintarVista);
+        //Computadora = new Corredor("Chatio", 2000, 150,30, repintarVista );
+        Jugador=jugador;
+        Computadora=oponente;
         Panel.setCorredores(Jugador, Computadora);
         Panel.repaint();
     }
