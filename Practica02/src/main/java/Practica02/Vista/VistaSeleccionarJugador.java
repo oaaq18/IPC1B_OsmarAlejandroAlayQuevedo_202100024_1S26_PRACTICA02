@@ -3,11 +3,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 
-public class VistaPrepararCarrera extends javax.swing.JFrame {
+public class VistaSeleccionarJugador extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPrepararCarrera.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaSeleccionarJugador.class.getName());
 
-    public VistaPrepararCarrera() {
+    public VistaSeleccionarJugador() {
         initComponents();
     }
     
@@ -127,7 +127,7 @@ public class VistaPrepararCarrera extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VistaPrepararCarrera().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new VistaSeleccionarJugador().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

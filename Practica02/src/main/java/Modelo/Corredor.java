@@ -22,6 +22,10 @@ public class Corredor implements Runnable{
         this.OnMove = OnMove;
     }
 
+    public void setPosicionY(int PosicionY) {
+        this.PosicionY = PosicionY;
+    }
+    
     public int getTiempoDescanso() {
         return tiempoDescanso;
     }
@@ -38,7 +42,9 @@ public class Corredor implements Runnable{
         return PosicionY;
     }
     
-    
+    public void setOnMove(Runnable onMove) {
+    this.OnMove = onMove;
+    }
     
     @Override
     public void run() {

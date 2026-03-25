@@ -1,25 +1,25 @@
 package Practica02.Controlador;
 import Practica02.Vista.MenuVista;
 import Practica02.Vista.VistaAgregarJugador;
-import Practica02.Vista.VistaPrepararCarrera;
+import Practica02.Vista.VistaSeleccionarJugador;
 import Practica02.Vista.PanelPista;
 import Modelo.Corredor;
 public class ControladorMenu {
     private MenuVista vistaMenu;
     private AgregarJugadorControlador personajeControlador;
-    private PrepararCarreraControlador preprarCarrera;
-    private ContoladorCarrera controladorCarrera;
+    private SeleccionarJugadorControlador preprarCarrera;
+    private ControladorCarrera controladorCarrera;
     private PanelPista panel;
     
     
     public ControladorMenu(MenuVista vista) {
         VistaAgregarJugador vistaAgregar = new VistaAgregarJugador();
-        VistaPrepararCarrera vistaPreparar = new VistaPrepararCarrera();
+        VistaSeleccionarJugador vistaPreparar = new VistaSeleccionarJugador();
         PanelPista panel = new PanelPista();
         this.vistaMenu = vista;
         this.personajeControlador = new AgregarJugadorControlador(vistaAgregar, 10);
-        this.preprarCarrera = new PrepararCarreraControlador(vistaPreparar, personajeControlador);
-        this.controladorCarrera = new ContoladorCarrera(panel);
+        this.preprarCarrera = new SeleccionarJugadorControlador(vistaPreparar, personajeControlador);
+        this.controladorCarrera = new ControladorCarrera(panel);
         Accciones();
        
     }
@@ -52,21 +52,11 @@ public class ControladorMenu {
         
     }
     private void iniciarCarrera() {
-        // Obtener el nombre seleccionado del combo
         String seleccionado = preprarCarrera.getVistaPrepararCarrera().getJugadorSeleccionad();
-
-        // Buscar el corredor real
         Corredor jugador = preprarCarrera.getCorredor(seleccionado);
-
-        // Elegir oponente aleatorio distinto al jugador
         Corredor oponente = personajeControlador.obtenerAleatorio();
 
-        // Preparar y arrancar la carrera
-        controladorCarrera.prepararCarrera(jugador, oponente);
-        controladorCarrera.getPanel().setVisible(true);
-        controladorCarrera.iniciarCarrera();
-
-        // Cerrar la ventana de preparar
+        controladorCarrera.ventanaJugar(jugador, oponente);
         preprarCarrera.getVistaPrepararCarrera().dispose();
     }
     

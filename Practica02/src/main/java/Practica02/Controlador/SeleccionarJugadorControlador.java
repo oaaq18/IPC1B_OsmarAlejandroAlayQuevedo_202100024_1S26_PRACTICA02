@@ -1,25 +1,26 @@
 
 package Practica02.Controlador;
-import Practica02.Vista.VistaPrepararCarrera;
+import Practica02.Vista.VistaSeleccionarJugador;
 import Modelo.Corredor;
 
-public class PrepararCarreraControlador {
-    private VistaPrepararCarrera vistaPrepararCarrera;
+public class SeleccionarJugadorControlador {
+    private VistaSeleccionarJugador vistaPrepararCarrera;
      private AgregarJugadorControlador personajeControlador;
 
-    public PrepararCarreraControlador(VistaPrepararCarrera vistaPrepararCarrera,AgregarJugadorControlador personajeControlador) {
+    public SeleccionarJugadorControlador(VistaSeleccionarJugador vistaPrepararCarrera,AgregarJugadorControlador personajeControlador) {
         this.vistaPrepararCarrera = vistaPrepararCarrera;
         this.personajeControlador = personajeControlador;
     }
     
     
-    public VistaPrepararCarrera getVistaPrepararCarrera() {
+    public VistaSeleccionarJugador getVistaPrepararCarrera() {
         return vistaPrepararCarrera;
     }
     
     public void llenarCorredores (String Corredores[]){
         vistaPrepararCarrera.llennarCombo(Corredores);
     }
+    
     public Corredor getCorredor(String nombre) {
     // El nombre viene como "Fernando - Nimbus 2000", solo nos interesa la parte antes del " - "
     String soloNombre = nombre;
