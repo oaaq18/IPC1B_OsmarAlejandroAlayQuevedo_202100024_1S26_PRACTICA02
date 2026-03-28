@@ -33,6 +33,11 @@ public class MenuVista extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, mensaje);
     }
 
+    public JButton getBotonHistorialDePartidas() {
+        return BotonHistorialDePartidas;
+    }
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,6 +53,7 @@ public class MenuVista extends javax.swing.JFrame {
         BotonAgregar = new javax.swing.JButton();
         BotonVerPuntajes = new javax.swing.JButton();
         BotonSalir = new javax.swing.JButton();
+        BotonHistorialDePartidas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +78,7 @@ public class MenuVista extends javax.swing.JFrame {
         BotonVerPuntajes.setBackground(new java.awt.Color(102, 102, 0));
         BotonVerPuntajes.setFont(new java.awt.Font("Z003", 0, 24)); // NOI18N
         BotonVerPuntajes.setForeground(new java.awt.Color(0, 0, 0));
-        BotonVerPuntajes.setText("Ver Puntajes");
+        BotonVerPuntajes.setText("Top Puntajes");
         BotonVerPuntajes.addActionListener(this::BotonVerPuntajesActionPerformed);
 
         BotonSalir.setBackground(new java.awt.Color(102, 102, 0));
@@ -80,6 +86,12 @@ public class MenuVista extends javax.swing.JFrame {
         BotonSalir.setForeground(new java.awt.Color(0, 0, 0));
         BotonSalir.setText("Salir");
         BotonSalir.addActionListener(this::BotonSalirActionPerformed);
+
+        BotonHistorialDePartidas.setBackground(new java.awt.Color(102, 102, 0));
+        BotonHistorialDePartidas.setFont(new java.awt.Font("Z003", 0, 24)); // NOI18N
+        BotonHistorialDePartidas.setForeground(new java.awt.Color(0, 0, 0));
+        BotonHistorialDePartidas.setText("Historial de Partidas");
+        BotonHistorialDePartidas.addActionListener(this::BotonHistorialDePartidasActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,7 +104,8 @@ public class MenuVista extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BotonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BotonVerPuntajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BotonSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BotonSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonHistorialDePartidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -105,10 +118,12 @@ public class MenuVista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(BotonAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BotonHistorialDePartidas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BotonVerPuntajes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BotonSalir)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,6 +158,10 @@ public class MenuVista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonJugarActionPerformed
 
+    private void BotonHistorialDePartidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonHistorialDePartidasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonHistorialDePartidasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -170,6 +189,7 @@ public class MenuVista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAgregar;
+    private javax.swing.JButton BotonHistorialDePartidas;
     private javax.swing.JButton BotonJugar;
     private javax.swing.JButton BotonSalir;
     private javax.swing.JButton BotonVerPuntajes;

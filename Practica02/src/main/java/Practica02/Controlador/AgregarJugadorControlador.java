@@ -46,7 +46,7 @@ public class AgregarJugadorControlador {
         int delay = obtenerDelay(escoba);
 
         // crear el corredor
-        Corredor nuevo = new Corredor(nombre, delay, 100, 10, null);
+        Corredor nuevo = new Corredor(nombre,casa,escoba, delay, 100, 10, null);
 
         //Intentar agregar al vector
         if (agregarCorredor(nuevo)) {
@@ -102,15 +102,14 @@ public class AgregarJugadorControlador {
         }
         return false;
     }
-    public Corredor obtenerAleatorio() {
-        if (total == 0) {
-            return null; // o lanzar excepción si prefieres
-        }
-
-        Random rand = new Random();
-        int indice = rand.nextInt(total); // SOLO hasta total
-
-        return corredores[indice];
+  
+    public Corredor obtenerAleatorio(String nombreExcluido) {
+        if (total < 2) return null;
+        Corredor candidato;
+        do {
+            int i = (int) (Math.random() * total);
+            candidato = corredores[i];
+        } while (candidato.getNombre().equalsIgnoreCase(nombreExcluido));
+    return candidato;
     }
-    
 }

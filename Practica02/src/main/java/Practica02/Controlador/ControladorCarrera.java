@@ -1,77 +1,151 @@
 package Practica02.Controlador;
 
-import Practica02.Vista.PanelPista;
+import Practica02.Vista.VistaCarrera;
 import Modelo.Corredor;
+import Modelo.Partida;
+import Modelo.Premios;
+import Practica02.Vista.PanelPista;
+import java.util.Random;
 
 public class ControladorCarrera {
-    private PanelPista Panel;
-    private Corredor Jugador;
-    private Corredor Computadora;
-    
+    private Partida partida;
+    private VistaCarrera vista;
+    private PanelPista panel;
+    private Corredor jugador;
+    private Corredor computadora;
+    private Random rnd = new Random();
+    private Premios premios;
+    private boolean carreraTerminada = false;
+    private ReportesControlador reportesControlador;
 
-    public ControladorCarrera(PanelPista Panel) {
-        this.Panel = Panel;
+    public ControladorCarrera(VistaCarrera vista,ReportesControlador reportesControlador) {
+        this.vista = vista;
+        this.reportesControlador=reportesControlador;
+        asignarAcciones();
+    }
+
+    private void asignarAcciones() {
+        vista.getBotonRegresar().addActionListener(e -> regresar());
+    }
+
+    public void prepararCarrera(Corredor jugador, Corredor computadora) {
         
-    }
-
-    public PanelPista getPanel() {
-        return Panel;
-    }
-
-    public Corredor getJugador() {
-        return Jugador;
-    }
-
-    public Corredor getComputadora() {
-        return Computadora;
-    }
-    
-    public void prepararCarrera(Corredor jugador, Corredor oponente){
-        Runnable repintarVista = () -> Panel.repaint();
+        this.jugador = jugador;
+        this.computadora = computadora;
+        int numero = rnd.nextInt(2);
+        int Xaleatoria = rnd.nextInt(200);
+        jugador.setOnLlegadaMeta(() -> terminarCarrera(jugador));
+        computadora.setOnLlegadaMeta(() -> terminarCarrera(computadora));
+        jugador.resetear(50);      //carril superior
+        computadora.resetear(150); //carril inferior
+        computadora.setPosicionY(120);
+        
+        // Mostrar datos del jugador en la vista
+        vista.setNombreJugador(jugador.getNombre());
+        vista.setEscobaJugador(jugador.getEscoba());
+        vista.setTextoCasa(jugador.getCasa());
+        vista.setPuntaje(String.valueOf(jugador.getPuntos()));
        
-        Panel.setCorredores(jugador, oponente);
-        Panel.repaint();
-        javax.swing.JFrame ventana = new javax.swing.JFrame();
-        ventana.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        ventana.setSize(600, 200);
-        ventana.setLocationRelativeTo(null); // Lo centra
+        premios = generarPremioAleatorio(); 
+        Premios[] arregloPremios = {premios};
+        jugador.setPremios(arregloPremios);
+        computadora.setPremios(arregloPremios);
+        vista.getPista().setPremios(premios);
+        // Asignar el repaint como onMove
+        Runnable repintar = () -> vista.getPista().repaint();
+        jugador.setOnMove(repintar);
+        computadora.setOnMove(repintar);
+        //premios
+        
+    
+        vista.getPista().setPremios(premios);
+        //fin premios
+        // Decirle al panel quienes corren
+        vista.getPista().setCorredores(jugador, computadora);
+        
+        vista.getPista().repaint();
     }
     
-    public void iniciarCarrera(Corredor jugador, Corredor oponente){
-    //iniciar los hilos de cada jugador
-     Thread hiloJugador=new Thread(jugador);
-     Thread hiloComputadora=new Thread(oponente);
-     
-     hiloComputadora.start();
-     hiloJugador.start();
-     
+    private void terminarCarrera(Corredor ganador) {
+        if (carreraTerminada) return; // si ya terminó no hacer nada
+            carreraTerminada = true;
+
+            // Detener ambos corredores
+            jugador.setEnCarrera(false);
+            computadora.setEnCarrera(false);
+            // Guardar la partida
+            Partida partida = new Partida(
+                jugador.getNombre(),
+                computadora.getNombre(),
+                jugador.getEscoba(),
+                jugador.getPuntos(),
+                computadora.getPuntos(),
+                ganador.getNombre()
+            );
+            reportesControlador.guardarPartida(partida);
+            // Mostrar ganador en la vista
+            javax.swing.SwingUtilities.invokeLater(() -> {javax.swing.JOptionPane.showMessageDialog(
+                    vista,
+                    "¡" + ganador.getNombre() + " gano la carrera\n" +
+                    "Puntos: " + ganador.getPuntos(),
+                    "fin de la carrera",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE
+            );
+        });
     }
-    public void ventanaJugar(Corredor jugador, Corredor oponente){
-        this.Jugador = jugador;
-        this.Computadora = oponente;
+    private Premios generarPremioAleatorio() {
+        // Elegir tipo aleatorio
+        int random = (int) (Math.random() * 10);
+        String tipo;
+        if (random < 1) {
+            tipo = Premios.SNITCH;
+        } else if (random < 5) {
+            tipo = Premios.BLUDGER;
+        } else {
+            tipo = Premios.QUAFFLE;
+        }
 
-        //crear la ventana
-        javax.swing.JFrame ventana = new javax.swing.JFrame("Carrera de Escobas");
-        ventana.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        ventana.setSize(600, 300);
-        ventana.setLocationRelativeTo(null);
+        // Posicion X aleatoria entre 100 y 400
+        int posX = 100 + (int) (Math.random() * 300);
 
-        //crear el panel
-        PanelPista pista = new PanelPista();
-        ventana.add(pista);
-        ventana.setVisible(true); 
+        // Carril aleatorio
+        int[] carriles = {50, 120};
+        int posY = carriles[(int) (Math.random() * 2)];
 
-        // Asignar el repaint como onMove ANTES de iniciar hilos
-        Runnable repintar = () -> pista.repaint();
-        jugador.setOnMove(repintar);
-        oponente.setOnMove(repintar);
-        oponente.setPosicionY(200);
-        // Decirle al panel quienes corren
-        pista.setCorredores(jugador, oponente);
-        pista.repaint();
+        // Runnable para repintar el cambio de premio
+        Runnable repintar = () -> vista.getPista().repaint();
 
-        // Iniciar los hilos
-        new Thread(jugador).start();
-        new Thread(oponente).start();
+        return new Premios(tipo, 0, posX, posY, repintar);
+}
+
+
+    public void iniciarCarrera() {
+        Thread hiloJugador = new Thread(jugador);
+        Thread hiloComputadora = new Thread(computadora);
+        Thread hiloPremios = new Thread(premios);
+
+        hiloJugador.start();
+        hiloComputadora.start();
+        hiloPremios.start();
     }
+
+    private void regresar() {
+        // Detener los hilos
+         
+        jugador.setEnCarrera(false);
+        computadora.setEnCarrera(false);
+        // Cerrar la ventana
+        vista.dispose();
+    }
+
+    public VistaCarrera getVista() {
+        return vista;
+    }
+    
+    public void llenarPremios(Premios premios){
+        this.premios = premios;
+        //premios= new Premios(Nombre, 0, 0, 0, 0, premios);
+    }
+  
+    
 }

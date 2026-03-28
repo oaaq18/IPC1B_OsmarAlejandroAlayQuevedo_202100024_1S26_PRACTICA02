@@ -3,23 +3,28 @@ import Practica02.Vista.MenuVista;
 import Practica02.Vista.VistaAgregarJugador;
 import Practica02.Vista.VistaSeleccionarJugador;
 import Practica02.Vista.PanelPista;
+import Practica02.Vista.VistaCarrera;
 import Modelo.Corredor;
+import Modelo.Partida;
 public class ControladorMenu {
     private MenuVista vistaMenu;
     private AgregarJugadorControlador personajeControlador;
     private SeleccionarJugadorControlador preprarCarrera;
     private ControladorCarrera controladorCarrera;
     private PanelPista panel;
+    private ReportesControlador reportesControlador;
     
     
     public ControladorMenu(MenuVista vista) {
         VistaAgregarJugador vistaAgregar = new VistaAgregarJugador();
         VistaSeleccionarJugador vistaPreparar = new VistaSeleccionarJugador();
         PanelPista panel = new PanelPista();
+        VistaCarrera vistaCarrera = new VistaCarrera();
         this.vistaMenu = vista;
+        this.reportesControlador = new ReportesControlador();
         this.personajeControlador = new AgregarJugadorControlador(vistaAgregar, 10);
         this.preprarCarrera = new SeleccionarJugadorControlador(vistaPreparar, personajeControlador);
-        this.controladorCarrera = new ControladorCarrera(panel);
+        this.controladorCarrera = new ControladorCarrera(vistaCarrera, reportesControlador);
         Accciones();
        
     }
@@ -27,6 +32,7 @@ public class ControladorMenu {
         vistaMenu.getBotonAgregar().addActionListener(e -> abrirAgregarJugador());
         vistaMenu.getBotonJugar().addActionListener(e -> verificarYJugar());
         vistaMenu.getBotonSalir().addActionListener(e -> System.exit(0));
+        vistaMenu.getBotonHistorialDePartidas().addActionListener(e -> mostrarHistorial());
         
     }
     //vista que ya existe en el controlador de agregar jugador
@@ -52,12 +58,53 @@ public class ControladorMenu {
         
     }
     private void iniciarCarrera() {
+         //obtener jugador seleccionado
         String seleccionado = preprarCarrera.getVistaPrepararCarrera().getJugadorSeleccionad();
+        
+        //buscar el corredor 
         Corredor jugador = preprarCarrera.getCorredor(seleccionado);
-        Corredor oponente = personajeControlador.obtenerAleatorio();
 
-        controladorCarrera.ventanaJugar(jugador, oponente);
+        //elegir oponente aleatorio
+        Corredor oponente = personajeControlador.obtenerAleatorio(seleccionado);
+
+        // preparar la carrera
+        controladorCarrera.prepararCarrera(jugador, oponente);
+
+        //mostrar ventana de carrera
+        controladorCarrera.getVista().setVisible(true);
+
+        //iniciar hilos
+        controladorCarrera.iniciarCarrera();
+
+        //cerrar preparar carrera
         preprarCarrera.getVistaPrepararCarrera().dispose();
+    }
+    private void mostrarHistorial() {
+        if (reportesControlador.getTotal() == 0) {
+            vistaMenu.mostrarMensaje("No hay partidas registradas aún.");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder("Historial de partidas:\n\n");
+        Partida[] partidas = reportesControlador.getPartidas();
+
+        for (int i = 0; i < reportesControlador.getTotal(); i++) {
+            sb.append("Partida ").append(i + 1).append(":\n");
+            sb.append("  Jugador:  ").append(partidas[i].getNombreJugador())
+              .append(" (").append(partidas[i].getPuntosJugador()).append(" pts)\n");
+            sb.append("  Oponente: ").append(partidas[i].getNombreOponente())
+              .append(" (").append(partidas[i].getPuntosOponente()).append(" pts)\n");
+            sb.append("  Escoba:   ").append(partidas[i].getEscobaJugador()).append("\n");
+            sb.append("  Ganador:  ").append(partidas[i].getGanador()).append("\n");
+            sb.append("─────────────────\n");
+        }
+
+        javax.swing.JOptionPane.showMessageDialog(
+            vistaMenu,
+            sb.toString(),
+            "Historial de Partidas",
+            javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
     }
     
 }

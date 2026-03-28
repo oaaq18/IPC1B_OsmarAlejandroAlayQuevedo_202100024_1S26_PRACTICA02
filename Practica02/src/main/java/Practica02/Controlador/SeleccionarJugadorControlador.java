@@ -22,7 +22,6 @@ public class SeleccionarJugadorControlador {
     }
     
     public Corredor getCorredor(String nombre) {
-    // El nombre viene como "Fernando - Nimbus 2000", solo nos interesa la parte antes del " - "
     String soloNombre = nombre;
     return personajeControlador.buscarPorNombre(soloNombre);
 }
