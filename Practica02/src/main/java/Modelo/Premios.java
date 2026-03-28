@@ -42,7 +42,7 @@ public class Premios implements Runnable{
                 corredor.setPosicionX(500); // lleva a la meta
                 break;
             case BLUDGER:
-                corredor.aplicarPenalizacion(2000); // 2 segundos extra
+                corredor.aplicarPenalizacion(200); // 2 segundos extra
                 break;
             case QUAFFLE:
                 corredor.sumarPuntos(10);

@@ -66,10 +66,10 @@ public class AgregarJugadorControlador {
         
     private int obtenerDelay(String escoba) {
         switch (escoba) {
-            case "Nimbus 2000":    return 3000;
-            case "Nimbus 2001":    return 2000;
-            case "Saeta de Fuego": return 1000;
-            default:               return 3000;
+            case "Nimbus 2000":    return 300;
+            case "Nimbus 2001":    return 200;
+            case "Saeta de Fuego": return 100;
+            default:               return 300;
         }
     }
     

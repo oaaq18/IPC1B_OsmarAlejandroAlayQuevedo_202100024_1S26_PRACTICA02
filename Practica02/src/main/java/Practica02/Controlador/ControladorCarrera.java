@@ -14,7 +14,7 @@ public class ControladorCarrera {
     private Corredor jugador;
     private Corredor computadora;
     private Random rnd = new Random();
-    private Premios premios;
+    private Premios[] premios;;
     private boolean carreraTerminada = false;
     private ReportesControlador reportesControlador;
 
@@ -46,11 +46,12 @@ public class ControladorCarrera {
         vista.setTextoCasa(jugador.getCasa());
         vista.setPuntaje(String.valueOf(jugador.getPuntos()));
        
-        premios = generarPremioAleatorio(); 
-        Premios[] arregloPremios = {premios};
-        jugador.setPremios(arregloPremios);
-        computadora.setPremios(arregloPremios);
+        generarPremios();
+        jugador.setPremios(premios);
+        computadora.setPremios(premios);
         vista.getPista().setPremios(premios);
+        
+     
         // Asignar el repaint como onMove
         Runnable repintar = () -> vista.getPista().repaint();
         jugador.setOnMove(repintar);
@@ -93,40 +94,34 @@ public class ControladorCarrera {
             );
         });
     }
-    private Premios generarPremioAleatorio() {
-        // Elegir tipo aleatorio
-        int random = (int) (Math.random() * 10);
-        String tipo;
-        if (random < 1) {
-            tipo = Premios.SNITCH;
-        } else if (random < 5) {
-            tipo = Premios.BLUDGER;
-        } else {
-            tipo = Premios.QUAFFLE;
+    
+    private void generarPremios() {
+            premios = new Premios[5];
+            Runnable repintar = () -> vista.getPista().repaint();
+            int[] carriles = {50, 120};
+
+            for (int i = 0; i < 5; i++) {
+                int random = (int) (Math.random() * 10);
+                String tipo;
+                if (random < 1) {
+                    tipo = Premios.SNITCH;
+                } else if (random < 5) {
+                    tipo = Premios.BLUDGER;
+                } else {
+                    tipo = Premios.QUAFFLE;
+                }
+                int posX = 100 + (i * 70) + (int) (Math.random() * 30);
+                int posY = carriles[(int) (Math.random() * 2)];
+                premios[i] = new Premios(tipo, 0, posX, posY, repintar);
         }
-
-        // Posicion X aleatoria entre 100 y 400
-        int posX = 100 + (int) (Math.random() * 300);
-
-        // Carril aleatorio
-        int[] carriles = {50, 120};
-        int posY = carriles[(int) (Math.random() * 2)];
-
-        // Runnable para repintar el cambio de premio
-        Runnable repintar = () -> vista.getPista().repaint();
-
-        return new Premios(tipo, 0, posX, posY, repintar);
-}
+    }
 
 
     public void iniciarCarrera() {
         Thread hiloJugador = new Thread(jugador);
         Thread hiloComputadora = new Thread(computadora);
-        Thread hiloPremios = new Thread(premios);
-
         hiloJugador.start();
         hiloComputadora.start();
-        hiloPremios.start();
     }
 
     private void regresar() {
@@ -143,7 +138,7 @@ public class ControladorCarrera {
     }
     
     public void llenarPremios(Premios premios){
-        this.premios = premios;
+        //this.premios = premios;
         //premios= new Premios(Nombre, 0, 0, 0, 0, premios);
     }
   

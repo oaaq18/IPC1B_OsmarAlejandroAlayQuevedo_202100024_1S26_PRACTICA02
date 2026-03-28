@@ -1,6 +1,7 @@
 package Practica02.Vista;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -54,6 +55,7 @@ public class MenuVista extends javax.swing.JFrame {
         BotonVerPuntajes = new javax.swing.JButton();
         BotonSalir = new javax.swing.JButton();
         BotonHistorialDePartidas = new javax.swing.JButton();
+        verdatosdeEstudiante = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +95,12 @@ public class MenuVista extends javax.swing.JFrame {
         BotonHistorialDePartidas.setText("Historial de Partidas");
         BotonHistorialDePartidas.addActionListener(this::BotonHistorialDePartidasActionPerformed);
 
+        verdatosdeEstudiante.setBackground(new java.awt.Color(102, 102, 0));
+        verdatosdeEstudiante.setFont(new java.awt.Font("Z003", 0, 24)); // NOI18N
+        verdatosdeEstudiante.setForeground(new java.awt.Color(0, 0, 0));
+        verdatosdeEstudiante.setText("Datos de estudiante");
+        verdatosdeEstudiante.addActionListener(this::verdatosdeEstudianteActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,7 +113,8 @@ public class MenuVista extends javax.swing.JFrame {
                     .addComponent(BotonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BotonVerPuntajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BotonSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BotonHistorialDePartidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BotonHistorialDePartidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(verdatosdeEstudiante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -119,11 +128,13 @@ public class MenuVista extends javax.swing.JFrame {
                 .addComponent(BotonAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BotonHistorialDePartidas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BotonVerPuntajes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(verdatosdeEstudiante)
+                .addGap(4, 4, 4)
                 .addComponent(BotonSalir)
-                .addGap(44, 44, 44))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,8 +149,7 @@ public class MenuVista extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -161,6 +171,10 @@ public class MenuVista extends javax.swing.JFrame {
     private void BotonHistorialDePartidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonHistorialDePartidasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonHistorialDePartidasActionPerformed
+
+    private void verdatosdeEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verdatosdeEstudianteActionPerformed
+        JOptionPane.showMessageDialog(this, "Osmar Alejandro Alay Quevedo\n 202100024");
+    }//GEN-LAST:event_verdatosdeEstudianteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,5 +209,6 @@ public class MenuVista extends javax.swing.JFrame {
     private javax.swing.JButton BotonVerPuntajes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton verdatosdeEstudiante;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,14 +8,14 @@ import javax.swing.*;
 public class PanelPista extends JPanel{
     private Corredor jugador;
     private Corredor Computadora;
-    private Premios premios;
+    private Premios[] premios;;
     
     
     public PanelPista() {
         setPreferredSize(new java.awt.Dimension(600, 200));
         setBackground(Color.WHITE);
     }
-    public void setPremios(Premios premios) {
+    public void setPremios(Premios[] premios) {
         this.premios = premios;
     }
     
@@ -39,11 +39,20 @@ public class PanelPista extends JPanel{
              g.fillOval(Computadora.getPosicionX(), Computadora.getPosicionY(), 30, 30);
              g.drawString(Computadora.getNombre(), Computadora.getPosicionX(), Computadora.getPosicionY()-5);
         }
-        if (premios != null && premios.premioActivo()) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(premios.getPosicionX(), premios.getPosicionY(), 20, 20);
-            g.setColor(Color.BLACK);
-            g.drawString(premios.getTipo(), premios.getPosicionX(), premios.getPosicionY() - 5);
+        if (premios != null) {
+            for (Premios p : premios) {
+                if (p != null && p.premioActivo()) {
+                    // color según tipo
+                    switch (p.getTipo()) {
+                        case Premios.SNITCH:  g.setColor(java.awt.Color.YELLOW); break;
+                        case Premios.BLUDGER: g.setColor(java.awt.Color.RED);    break;
+                        case Premios.QUAFFLE: g.setColor(java.awt.Color.ORANGE); break;
+                    }
+                    g.fillOval(p.getPosicionX(), p.getPosicionY(), 20, 20);
+                    g.setColor(java.awt.Color.BLACK);
+                    g.drawString(p.getTipo(), p.getPosicionX(), p.getPosicionY() - 3);
+                }
+            }
         }
         //LINEA DE META
         g.setColor(Color.BLACK);
